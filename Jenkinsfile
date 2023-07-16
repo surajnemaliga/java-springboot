@@ -18,7 +18,11 @@ pipeline {
                 echo 'UAT'
             }
         }
-    
+        stage('staging') {
+            steps {
+                echo 'staging'
+            }
+        }
         stage('prod') {
             steps {
                 echo 'production'
@@ -31,6 +35,9 @@ pipeline {
         }
         failure {
              echo 'failure'
+        }
+        always {
+             echo 'King Suraj '
         }
     }
 }
