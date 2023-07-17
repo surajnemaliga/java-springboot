@@ -18,7 +18,6 @@ pipeline {
                 echo 'UAT'
             }
         }
-    
         stage('prod') {
             steps {
                 echo 'production'
@@ -30,7 +29,7 @@ pipeline {
             echo 'success'
         }
         failure {
-             echo 'failure'
+            echo 'failure'
         }
     }
 }
