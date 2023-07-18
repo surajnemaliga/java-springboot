@@ -4,11 +4,13 @@ pipeline {
         stage('build') {
             steps {
                 echo 'build'
+                sh 'mvn clean package'
             }
         }
         stage('test') {
             steps {
                 echo 'test'
+                sh 'mvn test'
             }
         }
         stage('UAT') {
