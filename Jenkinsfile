@@ -15,30 +15,20 @@ pipeline {
               }
             }
           }
-        /*stage('UAT') {
-            steps {
-                echo 'UAT'
-            }
-        }
-        stage('staging') {
-            steps {
-                echo 'staging'
-            }
-        }*/
-        stage("Quality Gate") {
-            steps {
-              timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
+          stage("Quality Gate") {
+                steps {
+                  timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                  }
+                }
               }
-            }
-          }
-        stage('prod') {
-            steps {
-                echo 'production'
-            }
-        }
-    }
-    post { 
+           stage('prod') {
+                  steps {
+                      echo 'production'
+                  }
+              }
+              }
+     post { 
         success {
             echo 'success'
         }
