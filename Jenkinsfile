@@ -7,17 +7,31 @@ pipeline {
                 sh 'mvn  package'
             }
         }
-        stage('test') {
+        stages {
+          stage("build & SonarQube analysis") {
             steps {
-                echo 'test'
-                sh 'mvn test'
+              withSonarQubeEnv('Sonar') {
+                sh 'mvn clean package sonar:sonar'
+              }
             }
-        }
-        stage('UAT') {
+          }
+        /*stage('UAT') {
             steps {
                 echo 'UAT'
             }
         }
+        stage('staging') {
+            steps {
+                echo 'staging'
+            }
+        }*/
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
         stage('prod') {
             steps {
                 echo 'production'
